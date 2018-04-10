@@ -47,10 +47,11 @@ class MainHandler(TemplateHandler):
             elif units == "imperial":
                 current_temp = current_temp * 9/5 - 459.67
             else:
+                # provide temp in Kelvin
                 pass
             
-            current_temp = "%.1f" % current_temp
-            self.render_template("results.html", {"current_temp": current_temp, "units": units, "conditions": conditions})
+            current_temp = int(current_temp)
+            self.render_template("results.html", {"loc":user_input, "current_temp": current_temp, "units": units, "conditions": conditions})
         else:
             self.render_template("home.html", {})
         

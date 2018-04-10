@@ -1,21 +1,32 @@
-<!DOCTYPE <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="/static/css/style.css" type="text/css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400,700" rel="stylesheet">
     </head>
     <body>
-        <header>
-            <form action="/" method="get">
-                <input type="text"name="user_input" required>
-                <button type="submit"><i class="fas fa-arrow-right"></i></button>
-                <input type="radio" id="metric" name="units" value="metric" {% if units == "metric" or units is none %}checked{% endif %}>
-                <label for="metric">Metric</label>
-                <input type="radio" id="imperial" name="units" value="imperial" {% if units == "imperial" %}checked{% endif %}>
-                <label for="imperial">Imperial</label>
+        <header class="flex-container flex-centered">
+            <form class="flex-container flex-centered flex-column" action="/" method="get">
+                <div class="flex-container flex-bottom-align">
+                    <input type="text" name="user_input" placeholder="City name or zip code" {% if loc is defined %}value="{{ loc }}"{% endif %} required autofocus>
+                    <button type="submit"><i class="fas fa-arrow-right"></i></button>
+                </div>
+                <break></break>
+                <label class="container">Metric
+                    <input type="radio" id="metric" name="units" value="metric" {% if (units == "metric") or (units is not defined) %}checked{% endif %}>
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container">Imperial
+                    <input type="radio" id="imperial" name="units" value="imperial" {% if units == "imperial" %}checked{% endif %}>
+                    <span class="checkmark"></span>
+                </label>
             </form>
         </header>
         <div class="content">
-            {{ message }}
+            <div class="message">
+                {{ message }}
+            </div>
             {% block content %}{% endblock %}
         </div>
     </body>
