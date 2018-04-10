@@ -14,3 +14,4 @@ verify_ssl = true
 tornado = "*"
 "jinja2" = "*"
 requests = "*"
+ipython = "*"

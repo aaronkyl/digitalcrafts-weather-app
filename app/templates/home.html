@@ -6,12 +6,17 @@
     <body>
         <header>
             <form action="/" method="get">
-                <input type="text"name="user_input">
+                <input type="text"name="user_input" required>
                 <button type="submit"><i class="fas fa-arrow-right"></i></button>
+                <input type="radio" id="metric" name="units" value="metric" {% if units == "metric" or units is none %}checked{% endif %}>
+                <label for="metric">Metric</label>
+                <input type="radio" id="imperial" name="units" value="imperial" {% if units == "imperial" %}checked{% endif %}>
+                <label for="imperial">Imperial</label>
             </form>
         </header>
-        <div>
-            {% if 
+        <div class="content">
+            {{ message }}
+            {% block content %}{% endblock %}
         </div>
     </body>
 </html>

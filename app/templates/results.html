@@ -1,5 +1,15 @@
 {% extends "home.html" %}
 
 {% block content %}
-
+    {% if units == "metric" %}
+        {{ current_temp }}&deg;C
+    {% elif units == "imperial" %}
+        {{ current_temp }}&deg;F
+    {% else %}
+        {{ current_temp }}&deg;K
+    {% endif %}
+    
+    {% for condition in conditions %}
+        {{ condition.main }}
+    {% endfor %}
 {% endblock %}
