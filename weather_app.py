@@ -5,6 +5,9 @@ import tornado.log
 import tornado.web
 import json
 import requests
+import queries
+from datetime import datetime, timedelta
+from helpers import API_call, convert_temp, degToCompass
 
 from jinja2 import Environment, PackageLoader, select_autoescape
   
@@ -14,6 +17,10 @@ ENV = Environment(
 )
 
 class TemplateHandler(tornado.web.RequestHandler):
+    def initialize(self):
+        self.session = queries.Session(
+            'postgresql://postgres@localhost:5432/weather')
+            
     def render_template(self, tpl, context):
         template = ENV.get_template(tpl)
         self.write(template.render(**context))
@@ -23,35 +30,53 @@ class MainHandler(TemplateHandler):
         units = self.get_query_argument("units", None)
         user_input = self.get_query_argument("user_input", None)
         if user_input:
-            try:
-                # zipcode entered
-                int(user_input)
-                current_weather = requests.get('http://api.openweathermap.org/data/2.5/weather?zip={}&APPID=729e8479b0893cb6745505ba71830535'.format(user_input))
-            except ValueError:
-                # city name entered
-                current_weather = requests.get('http://api.openweathermap.org/data/2.5/weather?q={}&APPID=729e8479b0893cb6745505ba71830535'.format(user_input))
-            
-            current_weather = current_weather.json()
-            
-            try:
-                current_temp = current_weather['main']['temp']
-            except KeyError:
-                # city name does not exist
-                self.render_template("home.html", {"message": "City not found"})
-                return
-                
-            conditions = current_weather['weather']
-            
-            if units == "metric":
-                current_temp -= 273.15
-            elif units == "imperial":
-                current_temp = current_temp * 9/5 - 459.67
+            cached_weather_data = self.session.query('''
+                SELECT weather_data, cached_datetime
+                FROM cache
+                WHERE location = %(location)s
+                ''', {'location': str(user_input).lower()})
+            if cached_weather_data:
+                # if weather data is old
+                if cached_weather_data[0]['cached_datetime'] < datetime.utcnow() - timedelta(minutes=15):
+                    # get new weather data
+                    current_weather = API_call(user_input).json()
+                    # update cache with recent weather data
+                    self.session.query('''
+                        UPDATE cache 
+                        SET weather_data = %(data)s
+                          , cached_datetime = current_timestamp
+                        WHERE location = %(loc)s
+                        ''', {"loc": user_input, "data": json.dumps(current_weather)})
+                else:
+                    # use cached weather data
+                    current_weather = json.loads(cached_weather_data[0]['weather_data'])
             else:
-                # provide temp in Kelvin
-                pass
+                # no cached weather data
+                # get current weather data
+                current_weather = API_call(user_input).json()
+                
+                # confirm weather data returned
+                if current_weather['cod'] == 200:
+                    # store weather data in cache
+                    self.session.query('''
+                        INSERT INTO cache VALUES (%(loc)s, %(data)s, current_timestamp)
+                        ''', {"loc": user_input, "data": json.dumps(current_weather)})
+                else:
+                    # user provided incorrect city or zip
+                    self.render_template("home.html", {"message": "City not found"})
+                    return 
             
-            current_temp = int(current_temp)
-            self.render_template("results.html", {"loc":user_input, "current_temp": current_temp, "units": units, "conditions": conditions})
+            params = {
+                "loc": user_input.title(),
+                "units": units,
+                "current_temp": convert_temp(current_weather['main']['temp'], units),
+                "current_humidity": current_weather['main']['humidity'],
+                "current_wind_speed": current_weather['wind']['speed'],
+                "current_wind_direction": degToCompass(current_weather['wind']['deg']),
+                "conditions": current_weather['weather']
+            }
+            
+            self.render_template("results.html", params)
         else:
             self.render_template("home.html", {})
         

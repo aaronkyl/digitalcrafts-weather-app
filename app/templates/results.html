@@ -8,8 +8,14 @@
     {% else %}
         {{ current_temp }}&deg;K
     {% endif %}
-    
+    <br>
     {% for condition in conditions %}
         {{ condition.main }}
     {% endfor %}
+    <br>
+    {{ current_humidity }}
+    <br>
+    {{ current_wind_speed }}
+    <br>
+    {{ current_wind_direction }}
 {% endblock %}
