@@ -1,21 +1,57 @@
 {% extends "home.html" %}
 
 {% block content %}
-    {% if units == "metric" %}
-        {{ current_temp }}&deg;C
-    {% elif units == "imperial" %}
-        {{ current_temp }}&deg;F
-    {% else %}
-        {{ current_temp }}&deg;K
-    {% endif %}
-    <br>
-    {% for condition in conditions %}
-        {{ condition.main }}
-    {% endfor %}
-    <br>
-    {{ current_humidity }}
-    <br>
-    {{ current_wind_speed }}
-    <br>
-    {{ current_wind_direction }}
+<div id="results-container" class="results flex-container">
+    <div id="temp-container" class="results flex-container">
+        <div id="temp-container-top">
+            <p>Weather for {{ loc }}</p>
+        </div>
+        <div id="temp-container-middle" class="flex-container">
+            <p id="temp">{{ current_temp }}</p>
+            {% if units == "metric" %}
+                <p id="degree">&deg;C</p>
+            {% elif units == "imperial" %}
+                <p id="degree">&deg;F</p>
+            {% else %}
+                <p id="degree">&deg;K</p>
+            {% endif %}
+        </div>
+        <div id="temp-container-bottom" class="flex-container flex-centered">
+            <p>
+            {% if conditions|length == 1 %}
+                {% for condition in conditions %}
+                    {{ condition.main }}
+                {% endfor %}
+            {% else %}
+                {% for condition in conditions %}
+                    {{ condition.main }}
+                    {% if not loop.last %}
+                        , 
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            </p>
+        </div>
+    </div>
+    <div id="other-weather-data-container" class="results flex-container">
+        {% if current_humidity is defined %}
+            <div>
+                <p>Humidity:</p> 
+                <p>{{ current_humidity }}</p>
+            </div>
+        {% endif %}
+        {% if current_wind_speed is defined %}
+            <div>
+                <p>Wind Speed:</p> 
+                <p>{{ current_wind_speed }}</p>
+            </div>
+        {% endif %}
+        {% if current_wind_direction is defined %}
+            <div>
+                <p>Wind Direction:</p> 
+                <p>{{ current_wind_direction }}</p>
+            </div>
+        {% endif %}
+    </div>
+</div>  
 {% endblock %}

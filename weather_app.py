@@ -54,7 +54,6 @@ class MainHandler(TemplateHandler):
                 # no cached weather data
                 # get current weather data
                 current_weather = API_call(user_input).json()
-                
                 # confirm weather data returned
                 if current_weather['cod'] == 200:
                     # store weather data in cache
@@ -66,17 +65,33 @@ class MainHandler(TemplateHandler):
                     self.render_template("home.html", {"message": "City not found"})
                     return 
             
+            try:
+                current_humidity = current_weather['main']['humidity']
+            except:
+                current_humidity = None
+            
+            try:
+                current_wind_speed = current_weather['wind']['speed']
+            except KeyError:
+                current_wind_speed = None
+            
+            try:
+                current_wind_direction = degToCompass(current_weather['wind']['deg'])
+            except KeyError:
+                current_wind_direction = None
+                
             params = {
                 "loc": user_input.title(),
                 "units": units,
                 "current_temp": convert_temp(current_weather['main']['temp'], units),
-                "current_humidity": current_weather['main']['humidity'],
-                "current_wind_speed": current_weather['wind']['speed'],
-                "current_wind_direction": degToCompass(current_weather['wind']['deg']),
+                "current_humidity": current_humidity,
+                "current_wind_speed": current_wind_speed,
+                "current_wind_direction": current_wind_direction,
                 "conditions": current_weather['weather']
             }
             
             self.render_template("results.html", params)
+        
         else:
             self.render_template("home.html", {})
         

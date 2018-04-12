@@ -3,9 +3,10 @@
 /*}*/
 
 html, body {
-    height: 100;
+    height: 100%;
     margin: 0;
     font-family: Montserrat, sans-serif;
+    font-weight: 400;
 }
 
 input:focus,
@@ -140,7 +141,80 @@ break {
 	background: #01001C;
 }
 
-.content {
+.results {
+    color: white;
+}
+
+#content {
     width: 100vw;
     height: calc(100vh - 8em);
+    background-image: url("/static/img/blue-background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#results-container {
+    width: 40%;
+    min-width: 500px;
+    background-color: rgba(0, 0, 0, .5);
+    /*outline: 1px solid white;*/
+    /*outline-offset: -10px;*/
+    box-shadow: 0 0 10px 10px rgba(0, 0, 0, .5);
+}
+
+#temp-container {
+    width: 70%;
+    height: 20rem;
+    flex-direction: column;
+}
+
+#temp-container-top {
+    padding: 1.5rem;
+    height: 15%;
+    box-sizing: border-box;
+    font-size: 1.25em;
+}
+
+#temp-container-top p {
+    margin-top: 0;
+}
+
+#temp-container-middle {
+    height: 70%;
+    box-sizing: border-box;
+    font-size: 12em;
+    justify-content: center;
+    align-items: flex-start;
+    font-weight: 200;
+}
+
+#temp-container-middle p {
+    margin: 0;
+}
+
+#degree {
+    font-size: .25em;
+    margin-top: .8em !important;
+}
+
+#other-weather-data-container {
+    width: 30%;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#temp-container-bottom {
+    height: 15%;
+}
+
+#other-weather-data-container div p:first-child {
+    margin-bottom: .1em;
+    font-weight: 200;
+}
+
+#other-weather-data-container div p:nth-child(2) {
+    margin-top: .1em;
+    margin-bottom: 0;
+    font-weight: 400;
 }
