@@ -1,4 +1,7 @@
 import requests
+import os
+
+API_KEY = os.environ.get('API_KEY')
 
 def API_call(user_input):
     try:
@@ -12,7 +15,8 @@ def API_call(user_input):
         # city name entered
         user_input = user_input.lower()
         query = "q={}"
-    return requests.get('http://api.openweathermap.org/data/2.5/weather?{}&APPID=729e8479b0893cb6745505ba71830535'.format(query.format(user_input)))
+    print('API call URL: http://api.openweathermap.org/data/2.5/weather?{}&APPID={}'.format(query.format(user_input), API_KEY))
+    return requests.get('http://api.openweathermap.org/data/2.5/weather?{}&APPID={}'.format(query.format(user_input), API_KEY))
 
 def convert_temp(temp, units):
     if units == "metric":

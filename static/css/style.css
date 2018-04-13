@@ -148,7 +148,7 @@ break {
 #content {
     width: 100vw;
     height: calc(100vh - 8em);
-    background-image: url("/static/img/blue-background.jpg");
+    /*background-image: url("/static/img/blue-background.jpg");*/
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
