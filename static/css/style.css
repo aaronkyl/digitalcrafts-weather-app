@@ -50,6 +50,11 @@ form input[name="user_input"] {
     text-align: center;
     font-size: 2em;
     color: white;
+    caret-color: transparent;
+}
+
+form input[name="user_input"]:focus {
+    border-bottom: 2px solid #EBB10C;
 }
 
 form button {
@@ -59,6 +64,7 @@ form button {
     font-size: 1.8em;
     height: 1.8em;
     width: 1.5em;
+    border-radius: 15px 15px 15px 0;
 }
 
 form button:hover {

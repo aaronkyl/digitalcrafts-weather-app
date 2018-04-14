@@ -9,10 +9,11 @@
         <header class="flex-container flex-centered">
             <form class="flex-container flex-centered flex-column" action="/" method="get">
                 <div class="flex-container flex-bottom-align">
-                    <input type="text" name="user_input" placeholder="City name or zip code" {% if loc is defined %}value="{{ loc }}"{% endif %} required autofocus>
+                    <input type="text" name="user_input" placeholder="City name or zip code" required autofocus autocomplete="off">
                     <button type="submit"><i class="fas fa-arrow-right"></i></button>
                 </div>
                 <break></break>
+                <p class="container">UNITS:</p>
                 <label class="container">Metric
                     <input type="radio" id="metric" name="units" value="metric" {% if (units == "metric") or (units is not defined) %}checked{% endif %}>
                     <span class="checkmark"></span>

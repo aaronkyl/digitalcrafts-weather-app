@@ -37,13 +37,13 @@
         {% if current_humidity is defined %}
             <div>
                 <p>Humidity:</p> 
-                <p>{{ current_humidity }}</p>
+                <p>{{ current_humidity }}%</p>
             </div>
         {% endif %}
         {% if current_wind_speed is defined %}
             <div>
-                <p>Wind Speed:</p> 
-                <p>{{ current_wind_speed }}</p>
+                <p>Wind Speed:</p>
+                <p>{{ current_wind_speed }} {% if units == "imperial" %}mph{% else %}m/s{% endif %}</p>
             </div>
         {% endif %}
         {% if current_wind_direction is defined %}

@@ -72,6 +72,8 @@ class MainHandler(TemplateHandler):
             
             try:
                 current_wind_speed = current_weather['wind']['speed']
+                if units == "imperial":
+                    current_wind_speed = float("{0:.2f}".format(current_wind_speed * 9/4))
             except KeyError:
                 current_wind_speed = None
             
