@@ -154,10 +154,109 @@ break {
 #content {
     width: 100vw;
     height: calc(100vh - 8em);
-    /*background-image: url("/static/img/blue-background.jpg");*/
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.pleasant {
+    background-image: url("/static/img/temps/pleasant.svg");
+}
+
+.pleasant-cloudy {
+    background-image: url("/static/img/conditions/cloudy.svg"), url("/static/img/temps/pleasant.svg");
+}
+
+.pleasant-foggy {
+    background-image: url("/static/img/conditions/foggy.svg"), url("/static/img/temps/pleasant.svg");
+}
+
+.pleasant-rainy {
+    background-image: url("/static/img/conditions/rainy.svg"), url("/static/img/temps/pleasant.svg");
+}
+
+.pleasant-snowy {
+    background-image: url("/static/img/conditions/snowy.svg"), url("/static/img/temps/pleasant.svg");
+}
+
+.cold {
+    background-image: url("/static/img/temps/cold.svg");
+}
+
+.cold-cloudy {
+    background-image: url("/static/img/conditions/cloudy.svg"), url("/static/img/temps/cold.svg");
+}
+
+.cold-foggy {
+    background-image: url("/static/img/conditions/foggy.svg"), url("/static/img/temps/cold.svg");
+}
+
+.cold-rainy {
+    background-image: url("/static/img/conditions/rainy.svg"), url("/static/img/temps/cold.svg");
+}
+
+.cold-snowy {
+    background-image: url("/static/img/conditions/snowy.svg"), url("/static/img/temps/cold.svg");
+}
+
+.freezing {
+    background-image: url("/static/img/temps/freezing.svg");
+}
+
+.freezing-cloudy {
+    background-image: url("/static/img/conditions/cloudy.svg"), url("/static/img/temps/freezing.svg");
+}
+
+.freezing-foggy {
+    background-image: url("/static/img/conditions/foggy.svg"), url("/static/img/temps/freezing.svg");
+}
+
+.freezing-rainy {
+    background-image: url("/static/img/conditions/rainy.svg"), url("/static/img/temps/freezing.svg");
+}
+
+.freezing-snowy {
+    background-image: url("/static/img/conditions/snowy.svg"), url("/static/img/temps/freezing.svg");
+}
+
+.hot {
+    background-image: url("/static/img/temps/hot.svg");
+}
+
+.hot-cloudy {
+    background-image: url("/static/img/conditions/cloudy.svg"), url("/static/img/temps/hot.svg");
+}
+
+.hot-foggy {
+    background-image: url("/static/img/conditions/foggy.svg"), url("/static/img/temps/hot.svg");
+}
+
+.hot-rainy {
+    background-image: url("/static/img/conditions/rainy.svg"), url("/static/img/temps/hot.svg");
+}
+
+.hot-snowy {
+    background-image: url("/static/img/conditions/snowy.svg"), url("/static/img/temps/hot.svg");
+}
+
+.warm {
+    background-image: url("/static/img/temps/warm.svg");
+}
+
+.warm-cloudy {
+    background-image: url("/static/img/conditions/cloudy.svg"), url("/static/img/temps/warm.svg");
+}
+
+.warm-foggy {
+    background-image: url("/static/img/conditions/foggy.svg"), url("/static/img/temps/warm.svg");
+}
+
+.warm-rainy {
+    background-image: url("/static/img/conditions/rainy.svg"), url("/static/img/temps/warm.svg");
+}
+
+.warm-snowy {
+    background-image: url("/static/img/conditions/snowy.svg"), url("/static/img/temps/warm.svg");
 }
 
 #results-container {

@@ -81,15 +81,42 @@ class MainHandler(TemplateHandler):
                 current_wind_direction = degToCompass(current_weather['wind']['deg'])
             except KeyError:
                 current_wind_direction = None
-                
+            
+            current_temp = current_weather['main']['temp']
+            if current_temp >= 308:
+                background = "hot"
+            elif current_temp >= 300:
+                background = "warm"
+            elif current_temp >= 286:
+                background = "pleasant"
+            elif current_temp >= 273:
+                background = "cold"
+            else:
+                background = "freezing"
+            
+            condition_background = []
+            for condition in current_weather['weather']:
+                condition_background.append(condition['id'])
+            condition_background.sort()
+            if condition_background[0] < 600:
+                background += "-rainy"
+            elif condition_background[0] < 700:
+                background += "-snowy"
+            elif condition_background[0] < 800:
+                background += "-foggy"
+            elif condition_background[0] > 800 and condition_background[0] < 900:
+                background += "-cloudy"
+            
+            
             params = {
                 "loc": user_input.title(),
                 "units": units,
-                "current_temp": convert_temp(current_weather['main']['temp'], units),
+                "current_temp": convert_temp(current_temp, units),
                 "current_humidity": current_humidity,
                 "current_wind_speed": current_wind_speed,
                 "current_wind_direction": current_wind_direction,
-                "conditions": current_weather['weather']
+                "conditions": current_weather['weather'],
+                "background": background
             }
             
             self.render_template("results.html", params)
