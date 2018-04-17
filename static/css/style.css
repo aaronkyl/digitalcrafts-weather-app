@@ -18,7 +18,7 @@ button:focus {
 
 header {
     height: 8em;
-    background-color: #01001C;
+    background-color: black; /*#01001C;*/
     color: white;
     font-weight: 500;
 }
@@ -46,19 +46,19 @@ form input[name="user_input"] {
     width: 15em;
     background: transparent;
     border: none;
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid #DEDEDE;
     text-align: center;
     font-size: 2em;
     color: white;
     caret-color: transparent;
 }
 
-form input[name="user_input"]:focus {
-    border-bottom: 2px solid #EBB10C;
-}
+/*form input[name="user_input"]:focus {
+    border-bottom: 2px solid #DEDEDE; /*#EBB10C;
+}*/
 
 form button {
-    background-color: #EBB10C;
+    background-color: #DEDEDE; /*#EBB10C;*/
     color: #01001C;
     border: none;
     font-size: 1.8em;
@@ -122,7 +122,7 @@ break {
 
 /* When the radio button is checked, add a blue background */
 .container input:checked ~ .checkmark {
-    background-color: #EBB10C;
+    background-color: #eee/*#EBB10C;*/
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
